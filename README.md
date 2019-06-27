@@ -5,7 +5,8 @@ An OWS Wallet servlet plugin for Open Street Map (OSM).
 
 ## Main Features
 
-- None, really.
+- Get Address from geographic position
+- Get geographic position from address
 
 ## Installation
 
