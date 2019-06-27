@@ -1,0 +1,50 @@
+{
+  "header": {
+    "id": "org.openwalletstack.wallet.plugin.servlet.qgis",
+    "kind": "servlet",
+    "name": "QGIS",
+    "version": "0.0.1",
+    "description": "An OWS Wallet servlet plugin for QDIS (Quantum Geographic Information System).",
+    "author": "Open Wallet Stack",
+    "url": {
+      "marketing": "https://openwalletstack.org",
+      "support": "https://github.com/owstack/ows-wallet-servlet-qgis/issues",
+      "privacy": "https://openwalletstack.org/disclaimer",
+      "terms": "https://openwalletstack.org/terms",
+      "git": "https://github.com/owstack/ows-wallet-servlet-qgis/"
+    },
+    "commitHash": "fatal: "
+  },
+  "api": {
+    "root": "/qgis"
+  },
+  "permissions": {
+    "delete": false
+  },
+  "galleryImage": "img/gallery.png",
+  "previewImage": "img/preview.png",
+  "iconImage": "img/icon.png",
+  "store": {
+    "id": "0",
+    "rating": "4+",
+    "price": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "category": {
+      "primary": "General",
+      "secondary": "OWS"
+    },
+    "keywords": [
+      "ows",
+      "plugin",
+      "servlet"
+    ]
+  },
+  "skins": {
+    "default": {
+      "default": true
+    }
+  },
+  "dependencies": {}
+}
