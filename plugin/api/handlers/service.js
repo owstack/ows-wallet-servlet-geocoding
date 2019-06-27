@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('owsWalletPlugin.apiHandlers').service('service', [
-	'qgisService',
+	'openStreetMapService',
   'owsWalletPluginClient.api.Utils',
-function(qgisService, Utils) {
+function(openStreetMapService, Utils) {
 
   var root = {};
 
@@ -37,7 +37,7 @@ function(qgisService, Utils) {
       return callback(message);
     }
 
-    qgisService.init(clientId, pluginConfig).then(function() {
+    openStreetMapService.init(clientId, pluginConfig).then(function() {
 
       message.response = {
         statusCode: 200,

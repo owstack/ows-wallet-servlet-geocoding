@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('owsWalletPlugin.services').factory('qgisService', [
+angular.module('owsWalletPlugin.services').factory('openStreetMapService', [
   '$log',
   'owsWalletPluginClient.api.Device',
   'owsWalletPluginClient.api.Http',
@@ -11,7 +11,7 @@ function($log, Device, Http) {
   var isCordova = owswallet.Plugin.isCordova();
 
   var apiUrl = 'https://nominatim.openstreetmap.org/';
-  var qgisApi;
+  var openStreetMapApi;
 
   // Invoked via the servlet API to initialize our environment using the provided configuration.
   root.init = function(clientId, config) {
@@ -27,7 +27,7 @@ function($log, Device, Http) {
       var info = {};
       info.urls = getUrls();
 
-      createQGISApiProvider();
+      createOpenStreetMapApiProvider();
 
       return resolve({
         info: info
@@ -39,7 +39,7 @@ function($log, Device, Http) {
     return new Promise(function(resolve, reject) {
       if (position) {
         // Get address of specified position.
-        qgisApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude).then(function(response) {
+        openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude).then(function(response) {
           resolve(response.address);
 
         }).catch(function(response) {
@@ -51,7 +51,7 @@ function($log, Device, Http) {
 
         // Get address of device.
         Device.getPosition().then(function(position) {
-          return qgisApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
+          return openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
 
         }).then(function(response) {
           resolve(response.address);
@@ -76,7 +76,7 @@ function($log, Device, Http) {
           address.postalCode || '' + ',' +
           address.country || '');
 
-        qgisApi.get('search?format=json&q=' + encodedAddress).then(function(response) {
+        openStreetMapApi.get('search?format=json&q=' + encodedAddress).then(function(response) {
           var data = response;
           resolve(data);
         }).catch(function(response) {
@@ -107,9 +107,9 @@ function($log, Device, Http) {
    * Private functions
    */
 
-  function createQGISApiProvider() {
+  function createOpenStreetMapApiProvider() {
     // Using the access token, create a new provider for making future API requests.
-    qgisApi = new Http(apiUrl, {
+    openStreetMapApi = new Http(apiUrl, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -119,8 +119,8 @@ function($log, Device, Http) {
 
   function getUrls() {
     return {
-      url: 'https://www.qgis.org',
-      githubUrl: 'https://github.com/qgis/QGIS'
+      url: 'https://www.openstreetmap.org',
+      githubUrl: 'https://github.com/openstreetmap/Nominatim'
     };
   };
 
@@ -133,7 +133,7 @@ function($log, Device, Http) {
       }
     }
 
-    $log.error('QGIS: ' + callerId + ' - ' + response.toString());
+    $log.error('OpenStreetMap: ' + callerId + ' - ' + response.toString());
     var error;
 
     if (response.status && response.status <= 0) {

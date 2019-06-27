@@ -1,7 +1,7 @@
-OWS Wallet Servlet Plugin - QGIS (Quantum Geographic Information System)
+OWS Wallet Servlet Plugin - Open Street Map (OSM)
 =======
 
-An OWS Wallet servlet plugin for QDIS (Quantum Geographic Information System).
+An OWS Wallet servlet plugin for Open Street Map (OSM).
 
 ## Main Features
 
@@ -36,9 +36,9 @@ The release/ directory contains the content consumed by the OWS Wallet and must 
 
 ## Support
 
-* [GitHub Issues](https://github.com/owstack/ows-wallet-servlet-qgis/issues)
+* [GitHub Issues](https://github.com/owstack/ows-wallet-servlet-osm/issues)
   * Open an issue if you are having problems with this project
 
 ## License
 
-This plugin is released under the MIT License.  Please refer to the [LICENSE](https://github.com/owstack/ows-wallet-servlet-qgis/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.
+This plugin is released under the MIT License.  Please refer to the [LICENSE](https://github.com/owstack/ows-wallet-servlet-osm/blob/master/LICENSE) file that accompanies this project for more information including complete terms and conditions.

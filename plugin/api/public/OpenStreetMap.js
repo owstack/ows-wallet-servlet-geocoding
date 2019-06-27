@@ -1,21 +1,21 @@
 'use strict';
 
-angular.module('owsWalletPlugin.api.qgis').factory('QGIS', [
+angular.module('owsWalletPlugin.api.osm').factory('OpenStreetMap', [
   'ApiMessage',
-  'owsWalletPlugin.api.QGISServlet',
   'owsWalletPluginClient.api.ApiError',
+  'owsWalletPlugin.api.OpenStreetMapServlet',
   'owsWalletPluginClient.api.PluginApiHelper',
-function(QGISServlet, ApiMessage, PluginApiHelper) {
+function(ApiMessage, OpenStreetMapServlet, PluginApiHelper) {
 
   /**
    * Constructor.
    * @param {Object} configId - The configuration ID for the servlet.
    * @constructor
    */
-  function QGIS(configId) {
+  function OpenStreetMap(configId) {
     var self = this;
 
-    var servlet = new PluginApiHelper(QGISServlet);
+    var servlet = new PluginApiHelper(OpenStreetMapServlet);
     var apiRoot = servlet.apiRoot();
     var config = servlet.getConfig(configId);
 
@@ -32,7 +32,7 @@ function(QGISServlet, ApiMessage, PluginApiHelper) {
     this.getAddress = function(position) {
       var request = {
         method: 'GET',
-        url: apiRoot + '/qgis/address',
+        url: apiRoot + '/openstreetmap/address',
         data: position
       }
 
@@ -52,7 +52,7 @@ function(QGISServlet, ApiMessage, PluginApiHelper) {
     this.getPosition = function(address) {
       var request = {
         method: 'GET',
-        url: apiRoot + '/qgis/position',
+        url: apiRoot + '/openstreetmap/position',
         data: address
       }
 
@@ -90,5 +90,5 @@ function(QGISServlet, ApiMessage, PluginApiHelper) {
     return this;
   };
  
-  return QGIS;
+  return OpenStreetMap;
 }]);

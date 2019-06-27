@@ -7,12 +7,12 @@ angular.module('owsWalletPlugin').config(function($pluginConfigProvider) {
    * A match is made by searching routes in order, the first match returns the route.
    */
   $pluginConfigProvider.router.routes([
-    { path: '/qgis/address',  method: 'GET', handler: 'getAddress' },
-    { path: '/qgis/location', method: 'GET', handler: 'getLocation' }
+    { path: '/openstreetmap/address',  method: 'GET', handler: 'getAddress' },
+    { path: '/openstreetmap/location', method: 'GET', handler: 'getLocation' }
   ]);
 
 })
-.run(function(qgisService) {
+.run(function(openStreetMapService) {
 
   owswallet.Plugin.ready(function() {
 

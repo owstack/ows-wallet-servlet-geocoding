@@ -1,8 +1,8 @@
 {
-  "name": "@owstack/ows-wallet-servlet-qgis",
-  "title": "QGIS",
+  "name": "@owstack/ows-wallet-servlet-osm",
+  "title": "Open Street Map",
   "version": "0.0.1",
-  "description": "An OWS Wallet servlet plugin for QDIS (Quantum Geographic Information System).",
+  "description": "An OWS Wallet servlet plugin for Open Street Map (OSM).",
   "author": "Open Wallet Stack",
   "keywords": [
     "ows",
@@ -14,11 +14,11 @@
   "homepage": "https://openwalletstack.org",
   "license": "MIT",
   "repository": {
-    "url": "git://github.com/owstack/ows-wallet-servlet-qgis.git",
+    "url": "git://github.com/owstack/ows-wallet-servlet-osm.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/owstack/ows-wallet-servlet-qgis/issues"
+    "url": "https://github.com/owstack/ows-wallet-servlet-osm/issues"
   },
   "devDependencies": {
     "fs": "0.0.2",

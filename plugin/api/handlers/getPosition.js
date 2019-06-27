@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('owsWalletPlugin.api.qgis').factory('getPosition', [
-  'qgisService',
+angular.module('owsWalletPlugin.api.osm').factory('getPosition', [
+  'openStreetMapService',
   'owsWalletPluginClient.api.Utils',
-function(qgisService, Utils) {
+function(opemStreetMapService, Utils) {
 
 	var root = {};
 
@@ -26,7 +26,7 @@ function(qgisService, Utils) {
 			return callback(message);
     }
 
-    qgisService.getPosition(address).then(function(position) {
+    openStreetMapService.getPosition(address).then(function(position) {
       var response = position;
 
       message.response = {

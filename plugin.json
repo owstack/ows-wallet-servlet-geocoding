@@ -1,22 +1,22 @@
 {
   "header": {
-    "id": "org.openwalletstack.wallet.plugin.servlet.qgis",
+    "id": "org.openwalletstack.wallet.plugin.servlet.osm",
     "kind": "servlet",
-    "name": "QGIS",
+    "name": "Open Street Map",
     "version": "0.0.1",
-    "description": "An OWS Wallet servlet plugin for QDIS (Quantum Geographic Information System).",
+    "description": "An OWS Wallet servlet plugin for Open Street Map (OSM).",
     "author": "Open Wallet Stack",
     "url": {
       "marketing": "https://openwalletstack.org",
-      "support": "https://github.com/owstack/ows-wallet-servlet-qgis/issues",
+      "support": "https://github.com/owstack/ows-wallet-servlet-osm/issues",
       "privacy": "https://openwalletstack.org/disclaimer",
       "terms": "https://openwalletstack.org/terms",
-      "git": "https://github.com/owstack/ows-wallet-servlet-qgis/"
+      "git": "https://github.com/owstack/ows-wallet-servlet-osm/"
     },
-    "commitHash": "5f7a465"
+    "commitHash": "4fd61c8"
   },
   "api": {
-    "root": "/qgis"
+    "root": "/openstreetmap"
   },
   "permissions": {
     "delete": false
