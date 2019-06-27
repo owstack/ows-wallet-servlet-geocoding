@@ -13,7 +13,7 @@
       "terms": "https://openwalletstack.org/terms",
       "git": "https://github.com/owstack/ows-wallet-servlet-qgis/"
     },
-    "commitHash": "fatal: "
+    "commitHash": "e885beb"
   },
   "api": {
     "root": "/qgis"
@@ -24,6 +24,11 @@
   "galleryImage": "img/gallery.png",
   "previewImage": "img/preview.png",
   "iconImage": "img/icon.png",
+  "launch": {
+    "options": {
+      "startMode": "auto"
+    }
+  },
   "store": {
     "id": "0",
     "rating": "4+",
