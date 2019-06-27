@@ -2,10 +2,10 @@
 
 angular.module('owsWalletPlugin.api.qgis').factory('QGIS', [
   'ApiMessage',
+  'owsWalletPlugin.api.QGISServlet',
   'owsWalletPluginClient.api.ApiError',
-  'owsWalletPluginClient.api.QGISServlet',
   'owsWalletPluginClient.api.PluginApiHelper',
-function(ApiMessage, QGISServlet, PluginApiHelper) {
+function(QGISServlet, ApiMessage, PluginApiHelper) {
 
   /**
    * Constructor.
