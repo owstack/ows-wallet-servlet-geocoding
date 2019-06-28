@@ -2,10 +2,11 @@
 
 angular.module('owsWalletPlugin.api.osm').factory('OpenStreetMap', [
   'ApiMessage',
+  'lodash',
   'owsWalletPluginClient.api.ApiError',
-  'owsWalletPlugin.api.OpenStreetMapServlet',
+  'owsWalletPlugin.api.osm.OpenStreetMapServlet',
   'owsWalletPluginClient.api.PluginApiHelper',
-function(ApiMessage, OpenStreetMapServlet, PluginApiHelper) {
+function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
 
   /**
    * Constructor.
@@ -32,8 +33,8 @@ function(ApiMessage, OpenStreetMapServlet, PluginApiHelper) {
     this.getAddress = function(position) {
       var request = {
         method: 'GET',
-        url: apiRoot + '/openstreetmap/address',
-        data: position
+        url: apiRoot + '/address',
+        data: position || {}
       }
 
       return new ApiMessage(request).send().then(function(response) {
@@ -52,8 +53,8 @@ function(ApiMessage, OpenStreetMapServlet, PluginApiHelper) {
     this.getPosition = function(address) {
       var request = {
         method: 'GET',
-        url: apiRoot + '/openstreetmap/position',
-        data: address
+        url: apiRoot + '/position',
+        data: address || {}
       }
 
       return new ApiMessage(request).send().then(function(response) {

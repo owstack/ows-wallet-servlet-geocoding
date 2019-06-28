@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('owsWalletPlugin.api.osm').factory('getAddress', [
+angular.module('owsWalletPlugin.apiHandlers').factory('getAddress', [
   'openStreetMapService',
   'owsWalletPluginClient.api.Utils',
 function(openStreetMapService, Utils) {

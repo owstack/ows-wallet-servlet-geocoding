@@ -2,9 +2,10 @@
 
 angular.module('owsWalletPlugin.services').factory('openStreetMapService', [
   '$log',
+  'dataService',
   'owsWalletPluginClient.api.Device',
   'owsWalletPluginClient.api.Http',
-function($log, Device, Http) {
+function($log, dataService, Device, Http) {
 
   var root = {};
 
@@ -40,7 +41,7 @@ function($log, Device, Http) {
       if (position) {
         // Get address of specified position.
         openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude).then(function(response) {
-          resolve(response.address);
+          resolve(improveAddress(response.data.address));
 
         }).catch(function(response) {
           reject(getError(response, 'getAddress'));
@@ -50,11 +51,11 @@ function($log, Device, Http) {
       } else {
 
         // Get address of device.
-        Device.getPosition().then(function(position) {
+        Device.getCurrentPosition().then(function(position) {
           return openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
 
         }).then(function(response) {
-          resolve(response.address);
+          resolve(improveAddress(response.data.address));
 
         }).catch(function(response) {
           reject(getError(response, 'getAddress'));
@@ -77,21 +78,18 @@ function($log, Device, Http) {
           address.country || '');
 
         openStreetMapApi.get('search?format=json&q=' + encodedAddress).then(function(response) {
-          var data = response;
-          resolve(data);
+          resolve(response.data);
         }).catch(function(response) {
           reject(getError(response, 'getPosition'));
         });
 
       } else {
         // Get position of device.
-        Device.getPosition().then(function(position) {
+        Device.getCurrentPosition().then(function(position) {
           resolve({
-            position: {
-              coords: {
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude                
-              }
+            coords: {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude                
             }
           });
 
@@ -122,6 +120,12 @@ function($log, Device, Http) {
       url: 'https://www.openstreetmap.org',
       githubUrl: 'https://github.com/openstreetmap/Nominatim'
     };
+  };
+
+  function improveAddress(address) {
+    address.stateName = address.state;
+    address.state = lodash.find(dataService.states, {name: address.stateName}).abbr;
+    return address;
   };
 
   function getError(response, callerId) {
