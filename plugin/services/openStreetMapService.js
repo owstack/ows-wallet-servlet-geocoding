@@ -3,9 +3,10 @@
 angular.module('owsWalletPlugin.services').factory('openStreetMapService', [
   '$log',
   'dataService',
+  'lodash',
   'owsWalletPluginClient.api.Device',
   'owsWalletPluginClient.api.Http',
-function($log, dataService, Device, Http) {
+function($log, dataService, lodash, Device, Http) {
 
   var root = {};
 
