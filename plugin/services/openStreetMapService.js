@@ -53,7 +53,11 @@ function($log, dataService, lodash, Device, Http) {
 
         // Get address of device.
         Device.getCurrentPosition().then(function(position) {
-          return openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
+          if (position) {
+            return openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
+          } else {
+            resolve();
+          }
 
         }).then(function(response) {
           resolve(improveAddress(response.data.address));
@@ -87,12 +91,16 @@ function($log, dataService, lodash, Device, Http) {
       } else {
         // Get position of device.
         Device.getCurrentPosition().then(function(position) {
-          resolve({
-            coords: {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude                
-            }
-          });
+          if (position) {
+            resolve({
+              coords: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude                
+              }
+            });
+          } else {
+            resolve();
+          }
 
         }).catch(function(response) {
           reject(getError(response, 'getPosition'));
@@ -119,7 +127,7 @@ function($log, dataService, lodash, Device, Http) {
   function getUrls() {
     return {
       url: 'https://www.openstreetmap.org',
-      githubUrl: 'https://github.com/openstreetmap/Nominatim'
+      githubUrl: 'https://github.com/openstreetmap/nominatim'
     };
   };
 
