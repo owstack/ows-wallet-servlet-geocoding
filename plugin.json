@@ -3,7 +3,7 @@
     "id": "org.openwalletstack.wallet.plugin.servlet.osm",
     "kind": "servlet",
     "name": "Open Street Map",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "An OWS Wallet servlet plugin for Open Street Map (OSM).",
     "author": "Open Wallet Stack",
     "url": {
@@ -13,7 +13,7 @@
       "terms": "https://openwalletstack.org/terms",
       "git": "https://github.com/owstack/ows-wallet-servlet-osm/"
     },
-    "commitHash": "986a413"
+    "commitHash": "e27be46"
   },
   "api": {
     "root": "/openstreetmap"

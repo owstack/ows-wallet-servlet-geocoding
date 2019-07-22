@@ -34,8 +34,11 @@ function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
       var request = {
         method: 'GET',
         url: apiRoot + '/address',
-        data: position || {}
-      }
+        data: position || {},
+        opts: {
+          timeout: -1
+        }
+      };
 
       return new ApiMessage(request).send().then(function(response) {
         return response.data;
@@ -54,8 +57,11 @@ function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
       var request = {
         method: 'GET',
         url: apiRoot + '/position',
-        data: address || {}
-      }
+        data: address || {},
+        opts: {
+          timeout: -1
+        }
+      };
 
       return new ApiMessage(request).send().then(function(response) {
         return response.data;
