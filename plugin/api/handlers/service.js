@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('owsWalletPlugin.apiHandlers').service('service', [
-	'openStreetMapService',
+	'geocodingService',
   'owsWalletPluginClient.api.Utils',
-function(openStreetMapService, Utils) {
+function(geocodingService, Utils) {
 
   var root = {};
 
@@ -37,7 +37,7 @@ function(openStreetMapService, Utils) {
       return callback(message);
     }
 
-    openStreetMapService.init(clientId, pluginConfig).then(function() {
+    geocodingService.init(clientId, pluginConfig).then(function() {
 
       message.response = {
         statusCode: 200,

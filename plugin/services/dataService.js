@@ -57,5 +57,5 @@ function() {
             { abbr: 'WI', name: 'Wisconsin' },
             { abbr: 'WY', name: 'Wyoming' }];
 
-  return root;
+       return root;
 }]);

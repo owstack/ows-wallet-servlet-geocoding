@@ -1,19 +1,19 @@
 {
   "header": {
-    "id": "org.openwalletstack.wallet.plugin.servlet.osm",
+    "id": "org.openwalletstack.wallet.plugin.servlet.geocoding",
     "kind": "servlet",
-    "name": "Open Street Map",
+    "name": "Geocoding",
     "version": "0.0.3",
-    "description": "An OWS Wallet servlet plugin for Open Street Map (OSM).",
+    "description": "An OWS Wallet servlet plugin for Geocoding.",
     "author": "Open Wallet Stack",
     "url": {
       "marketing": "https://openwalletstack.org",
-      "support": "https://github.com/owstack/ows-wallet-servlet-osm/issues",
+      "support": "https://github.com/owstack/ows-wallet-servlet-geocoding/issues",
       "privacy": "https://openwalletstack.org/disclaimer",
       "terms": "https://openwalletstack.org/terms",
-      "git": "https://github.com/owstack/ows-wallet-servlet-osm/"
+      "git": "https://github.com/owstack/ows-wallet-servlet-geocoding/"
     },
-    "commitHash": "e27be46"
+    "commitHash": "4423fc0"
   },
   "api": {
     "root": "/openstreetmap"

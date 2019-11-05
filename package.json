@@ -1,8 +1,8 @@
 {
-  "name": "@owstack/ows-wallet-servlet-osm",
-  "title": "Open Street Map",
+  "name": "@owstack/ows-wallet-servlet-geocoding",
+  "title": "Geocoding",
   "version": "0.0.3",
-  "description": "An OWS Wallet servlet plugin for Open Street Map (OSM).",
+  "description": "An OWS Wallet servlet plugin for Geocoding.",
   "author": "Open Wallet Stack",
   "keywords": [
     "ows",
@@ -14,11 +14,11 @@
   "homepage": "https://openwalletstack.org",
   "license": "MIT",
   "repository": {
-    "url": "git://github.com/owstack/ows-wallet-servlet-osm.git",
+    "url": "git://github.com/owstack/ows-wallet-servlet-geocoding.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/owstack/ows-wallet-servlet-osm/issues"
+    "url": "https://github.com/owstack/ows-wallet-servlet-geocoding/issues"
   },
   "devDependencies": {
     "fs": "0.0.2",

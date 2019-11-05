@@ -1,33 +1,31 @@
 'use strict';
 
-angular.module('owsWalletPlugin.api.osm', []).namespace().constant('OpenStreetMapServlet',
+angular.module('owsWalletPlugin.api.geocoding', []).namespace().constant('GeocodingServlet',
 {
-  id: 'org.openwalletstack.wallet.plugin.servlet.osm'
+  id: 'org.openwalletstack.wallet.plugin.servlet.geocoding'
 });
 
 'use strict';
 
-angular.module('owsWalletPlugin.api.osm').factory('OpenStreetMap', [
+angular.module('owsWalletPlugin.api.geocoding').factory('Geocoding', [
   'ApiMessage',
   'lodash',
   'owsWalletPluginClient.api.ApiError',
-  'owsWalletPlugin.api.osm.OpenStreetMapServlet',
+  'owsWalletPlugin.api.geocoding.GeocodingServlet',
   'owsWalletPluginClient.api.PluginApiHelper',
-function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
+function(ApiMessage, lodash, ApiError, GeocodingServlet, PluginApiHelper) {
 
   /**
    * Constructor.
    * @param {Object} configId - The configuration ID for the servlet.
    * @constructor
    */
-  function OpenStreetMap(configId) {
+  function Geocoding(configId) {
     var self = this;
 
-    var servlet = new PluginApiHelper(OpenStreetMapServlet);
+    var servlet = new PluginApiHelper(GeocodingServlet);
     var apiRoot = servlet.apiRoot();
     var config = servlet.getConfig(configId);
-
-    init();
 
     /**
      * Public functions
@@ -80,10 +78,10 @@ function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
     };
 
     /**
-     * Private functions
+     * Initialize the service.
+     * @return a promise when service is initialized.
      */
-
-    function init() {
+    this.init = function() {
       var request = {
         method: 'PUT',
         url: apiRoot + '/service',
@@ -93,7 +91,8 @@ function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
       };
 
       return new ApiMessage(request).send().then(function(response) {
-        self.urls = lodash.get(response, 'data.info.urls', {});
+        self.provider = lodash.get(response, 'data.provider', {});
+        return self;
 
       }).catch(function(error) {
         throw new ApiError(error);
@@ -104,5 +103,5 @@ function(ApiMessage, lodash, ApiError, OpenStreetMapServlet, PluginApiHelper) {
     return this;
   };
  
-  return OpenStreetMap;
+  return Geocoding;
 }]);

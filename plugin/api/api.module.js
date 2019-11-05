@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('owsWalletPlugin.api.osm', []).namespace().constant('OpenStreetMapServlet',
+angular.module('owsWalletPlugin.api.geocoding', []).namespace().constant('GeocodingServlet',
 {
-  id: 'org.openwalletstack.wallet.plugin.servlet.osm'
+  id: 'org.openwalletstack.wallet.plugin.servlet.geocoding'
 });

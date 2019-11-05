@@ -1,19 +1,22 @@
 'use strict';
 
-angular.module('owsWalletPlugin.services').factory('openStreetMapService', [
+angular.module('owsWalletPlugin.services').factory('geocodingService', [
   '$log',
   'dataService',
   'lodash',
+  'providerService',
   'owsWalletPluginClient.api.Device',
   'owsWalletPluginClient.api.Http',
-function($log, dataService, lodash, Device, Http) {
+function($log, dataService, lodash, providerService, Device, Http) {
 
   var root = {};
 
   var isCordova = owswallet.Plugin.isCordova();
 
-  var apiUrl = 'https://nominatim.openstreetmap.org/';
-  var openStreetMapApi;
+  var provider;
+  var apiKey;
+  var geocodingApi;
+  var geocodingReverseApi;
 
   // Invoked via the servlet API to initialize our environment using the provided configuration.
   root.init = function(clientId, config) {
@@ -25,14 +28,17 @@ function($log, dataService, lodash, Device, Http) {
         reject(error);
       }
 
-      // Gather some additional information for the client. This information only during this initialization sequence.
-      var info = {};
-      info.urls = getUrls();
+      var providerConfig = lodash.find(config.providers, function(p) {
+        return p.default == true;
+      });
 
-      createOpenStreetMapApiProvider();
+      provider = providerService[providerConfig.name];
+      apiKey = providerConfig.apiKey;
+
+      createGeocodingApiProvider();
 
       return resolve({
-        info: info
+        provider: provider.info
       });
     });
   };
@@ -41,8 +47,8 @@ function($log, dataService, lodash, Device, Http) {
     return new Promise(function(resolve, reject) {
       if (position) {
         // Get address of specified position.
-        openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude).then(function(response) {
-          resolve(improveAddress(response.data.address));
+        geocodingReverseApi.get(provider.getLocationURI(position.coords.latitude, position.coords.longitude)).then(function(response) {
+          resolve(decodeAddress(response.data));
 
         }).catch(function(response) {
           reject(getError(response, 'getAddress'));
@@ -54,13 +60,13 @@ function($log, dataService, lodash, Device, Http) {
         // Get address of device.
         Device.getCurrentPosition().then(function(position) {
           if (position) {
-            return openStreetMapApi.get('reverse?format=json&lat=' + position.coords.latitude + '&lon=' + position.coords.longitude);
+            return geocodingReverseApi.get(provider.getLocationURI(position.coords.latitude, position.coords.longitude));
           } else {
             resolve();
           }
 
         }).then(function(response) {
-          resolve(improveAddress(response.data.address));
+          resolve(decodeAddress(response.data));
 
         }).catch(function(response) {
           reject(getError(response, 'getAddress'));
@@ -74,16 +80,11 @@ function($log, dataService, lodash, Device, Http) {
     return new Promise(function(resolve, reject) {
       if (address) {
         // Get position for specified address.
-        var encodedAddress = encodeURI(
-          address.number || '' + ',' +
-          address.street || '' + ',' +
-          address.city || '' + ',' +
-          address.state || '' + ',' +
-          address.postalCode || '' + ',' +
-          address.country || '');
+        var encodedAddress = provider.encodeAddress(address);
 
-        openStreetMapApi.get('search?format=json&q=' + encodedAddress).then(function(response) {
+        geocodingApi.get(encodedAddress).then(function(response) {
           resolve(response.data);
+
         }).catch(function(response) {
           reject(getError(response, 'getPosition'));
         });
@@ -114,9 +115,16 @@ function($log, dataService, lodash, Device, Http) {
    * Private functions
    */
 
-  function createOpenStreetMapApiProvider() {
+  function createGeocodingApiProvider() {
     // Using the access token, create a new provider for making future API requests.
-    openStreetMapApi = new Http(apiUrl, {
+    geocodingApi = new Http(provider.api.url.replace('{{apiKey}}', apiKey), {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    });
+
+    geocodingReverseApi = new Http(provider.api.reverseUrl.replace('{{apiKey}}', apiKey), {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
@@ -124,17 +132,14 @@ function($log, dataService, lodash, Device, Http) {
     });
   };
 
-  function getUrls() {
+  function decodeAddress(data) {
+    var address = provider.getAddress(data);
     return {
-      url: 'https://www.openstreetmap.org',
-      githubUrl: 'https://github.com/openstreetmap/nominatim'
-    };
-  };
-
-  function improveAddress(address) {
-    address.stateName = address.state;
-    address.state = lodash.find(dataService.states, {name: address.stateName}).abbr;
-    return address;
+      street: provider.getStreet(address),
+      city: provider.getCity(address),
+      state: provider.getState(address),
+      postalCode: provider.getPostalCode(address)
+    }    
   };
 
   function getError(response, callerId) {
@@ -146,7 +151,7 @@ function($log, dataService, lodash, Device, Http) {
       }
     }
 
-    $log.error('OpenStreetMap: ' + callerId + ' - ' + response.toString());
+    $log.error('Geocoding: ' + callerId + ' - ' + response.toString());
     var error;
 
     if (response.status && response.status <= 0) {

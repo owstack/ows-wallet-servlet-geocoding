@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('owsWalletPlugin.apiHandlers').factory('getAddress', [
-  'openStreetMapService',
+  'geocodingService',
   'owsWalletPluginClient.api.Utils',
-function(openStreetMapService, Utils) {
+function(geocodingService, Utils) {
 
 	var root = {};
 
@@ -26,7 +26,7 @@ function(openStreetMapService, Utils) {
 			return callback(message);
     }
 
-    openStreetMapService.getAddress(position).then(function(address) {
+    geocodingService.getAddress(position).then(function(address) {
       var response = address;
 
       message.response = {
