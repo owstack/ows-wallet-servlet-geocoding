@@ -3,8 +3,8 @@
     "id": "org.openwalletstack.wallet.plugin.servlet.geocoding",
     "kind": "servlet",
     "name": "Geocoding",
-    "version": "0.0.3",
-    "description": "An OWS Wallet servlet plugin for Geocoding.",
+    "version": "1.0.0",
+    "description": "Provides geocoding services.",
     "author": "Open Wallet Stack",
     "url": {
       "marketing": "https://openwalletstack.org",
@@ -13,7 +13,7 @@
       "terms": "https://openwalletstack.org/terms",
       "git": "https://github.com/owstack/ows-wallet-servlet-geocoding/"
     },
-    "commitHash": "4423fc0"
+    "commitHash": "b2b64f4"
   },
   "api": {
     "root": "/openstreetmap"

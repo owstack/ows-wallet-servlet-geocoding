@@ -1,8 +1,8 @@
 {
   "name": "@owstack/ows-wallet-servlet-geocoding",
   "title": "Geocoding",
-  "version": "0.0.3",
-  "description": "An OWS Wallet servlet plugin for Geocoding.",
+  "version": "1.0.0",
+  "description": "Provides geocoding services.",
   "author": "Open Wallet Stack",
   "keywords": [
     "ows",
